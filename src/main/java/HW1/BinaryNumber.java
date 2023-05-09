@@ -33,14 +33,8 @@ public class BinaryNumber {
         if(index < 0 || index >= data.length) throw new IndexOutOfBoundsException("Error: index out of bounds");
         return data[index];
     }
-    public int toDecimal() {
-        // method body
-        StringBuilder sb = new StringBuilder();
-        for( int num: data) {
-            sb.append(String.valueOf(num));
-        }
-        return Integer.valueOf(sb.toString());
-    }
+
+
 
     public void shiftR(int amount) {
         // resize length of array everytime we shift
@@ -54,10 +48,7 @@ public class BinaryNumber {
         if(aBinaryNumber.getLength() != data.length) {
             System.out.println("Length of input binary do not coincide with this binary");
         } else {
-            //How to add 2 binary
-            //when sum is >= 2 then sum is 10 and we keep the 0 and carry over 1
-            //this is about adding each number in 2 array together
-            //we add by going from right to left so traverse the array start at index length - 1
+
             ArrayDeque<Integer> deque = new ArrayDeque<Integer>();
             int carryOver = 0;
             for(int i = getLength() - 1; i>= 0; i--) {
@@ -84,7 +75,7 @@ public class BinaryNumber {
         }
     }
 
-    //Return the decimal number as a string
+    //Return the Binary number as a string
     public String toString() {
         //The decimal number is made of the value inside the array data
         StringBuilder sb = new StringBuilder();
@@ -92,6 +83,20 @@ public class BinaryNumber {
             sb.append(String.valueOf(num));
         }
         return sb.toString();
+    }
+
+
+    public int toDecimal() {
+        //given an array of integer
+        //multiply the last element of array to x with starting x = 1
+        //shift to the next element( left or current one) and multiple to x * 2
+        int result = 0;
+        int x = 1;
+        for(int i = data.length - 1; i >= 0; i--) {
+            result += data[i] * x;
+            x *= 2;
+        }
+        return result;
     }
     public void clearOverflow() {
         // method body
@@ -105,9 +110,8 @@ public class BinaryNumber {
 
 
 
-        BinaryNumber bn4 = new BinaryNumber("111");
-        BinaryNumber bn5 = new BinaryNumber("111");
-
+        BinaryNumber bn4 = new BinaryNumber("1101");
+        System.out.println(bn4.toDecimal());
 
 
         System.out.println("Binary 1: " + bn1.toString());
